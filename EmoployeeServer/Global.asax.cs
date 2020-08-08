@@ -21,6 +21,22 @@ namespace EmoployeeServer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            CreateUser();
         }
+        private void CreateUser()
+        {
+            var userMnager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            if (userMnager.FindByEmail("admin@admin.com") == null)
+            {
+                userMnager.Create(new ApplicationUser()
+                {
+                    UserName = "admin@admin.com",
+                    Email = "admin@admin.com",
+                    PhoneNumber = "01282515708"
+
+                }, "admin/123");
+            }
+        }
+
     }
 }
